@@ -1,0 +1,7 @@
+console.log("ready");
+$("#mynewtask").modal('hide')
+$(".task_body").val('');
+$(".task_comment").val('');
+$(".task_mark").val('');
+$(".task_task_images").val('');
+$(" table#tasks tbody").append("<%= j render @task%>")

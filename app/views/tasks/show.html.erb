@@ -1,0 +1,120 @@
+<!--
+<p>
+  <strong>Body:</strong>
+  <%= @task.body %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @task.comment %>
+</p>
+
+<p>
+  <strong>Mark:</strong>
+  <%= @task.mark %>
+</p>
+
+<p>
+  <strong>Answ_images</strong>
+  <% (0...@task.answ_images.count).each do |image|%>
+  <div >
+    <%= image_tag(@task.answ_images[image], class:"img-fluid")%>
+  </div>
+  <%end%>
+</p>
+<p>
+  <strong>User:</strong>
+  <%= @task.user.username %>
+</p>
+<br>
+-->
+
+<div class="card text-dark border-secondary bg-light mb-3" style="max-width: 900px" >
+  <div class="card-header text-white bg-dark">
+      Information
+  </div>
+  <div class="row g-0">
+      <% if @task.task_images.count > 0%>
+      <div class="col-md-6">
+        <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
+          <div class="card-header">
+            Task images
+          </div>
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <% (1...@task.task_images.count).each do |image|%>
+              <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="<%= image%>" aria-label="Slide <%= image+1%>"></button>
+            <%end%>
+          </div>
+
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <%= image_tag(@task.task_images[0], class:"d-block w-100")%>
+            </div>
+            <% (1...@task.task_images.count).each do |image|%>
+              <div class="carousel-item">
+                <%= image_tag(@task.task_images[image], class:"d-block w-100")%>
+              </div>
+            <%end%>
+          </div>
+        
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+      <%end%>
+    <div class="col-md-6">
+      <div class="card-body" style="text-align: left" >
+        <h5 style="text-align: left">User: </h5>
+        <p class="card-text"><%= @task.user.username %></p>
+        <h5 class="card-text">Task: </h5>
+        <p class="card-text"><%= @task.body %></p>
+        <h5 class="card-text" >Comment: </h5>
+        <p class="card-text"><%= @task.comment %></p>
+        <h5 style="text-align: left">Mark: </h5>
+        <span class="badge bg-dark" style="font-size: 150%;"><%= @task.mark %></span>
+      </div>
+    </div>
+  </div>
+</div>
+<% if @task.answ_images.count > 0%>
+  <div id="carouselExampleControls1" class="carousel carousel-dark slide" data-bs-ride="carousel"style="max-width: 600px">
+    <div class="card-header text-white bg-dark">
+            Answer images
+    </div>
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleControls1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <% (1...@task.answ_images.count).each do |image|%>
+        <button type="button" data-bs-target="#carouselExampleControls1" data-bs-slide-to="<%= image%>" aria-label="Slide <%= image+1%>"></button>
+      <%end%>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active" >
+        <%= image_tag(@task.answ_images[0], class:"d-block w-100")%>
+      </div>
+      <% (1...@task.answ_images.count).each do |image|%>
+        <div class="carousel-item">
+          <%= image_tag(@task.answ_images[image], class:"d-block w-100" )%>
+        </div>
+      <%end%>
+    </div>
+  
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1"  data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1"  data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+<%end%><br>
+
+

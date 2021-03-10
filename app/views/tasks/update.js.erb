@@ -1,0 +1,5 @@
+$("#myupdatepost_<%= @task.id%>").modal('hide')
+$(" tbody #tr_edit_<%= @task.id%>").fadeOut(500, function(){
+    $(this).remove();
+    $(" table#tasks tbody").append("<%= j render @task %>");
+});

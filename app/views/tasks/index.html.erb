@@ -1,0 +1,53 @@
+<%= simple_form_for(@task, remote: true) do |form|%>
+  <!-- Modal -->
+
+  <div class="modal fade" id="mynewtask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Task</h5><br>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= form.input :body, input_html: {class: "form-control task_body"}%>
+
+          <%= form.input :comment, input_html: {class: "form-control task_comment"}%>
+
+          <%= form.input :mark, collection: ["No mark",0,1,2,3,4,5], input_html: {class: "form-control task_mark"}%>
+          <br>
+          
+          <%= form.input :task_images, as: :file, input_html: {class: "form-control task_task_images", multiple: true}%><br>
+          <h6 style="text-align: left"> *Images should be JPEG of PNG</h6>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit :submit, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>
+
+<h1>Tasks</h1>
+<table class="table table-hover" id="tasks">
+  <thead class="table-secondary">
+    <tr>
+      <th>Title</th>
+      <th>User</th>
+      <th>Mark</th>
+      <th>Actions</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render @tasks%>
+  </tbody>
+</table>
+
+<br>
+<% if can? :create, @task%>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mynewtask">
+  New Task
+  </button>
+<%end%>

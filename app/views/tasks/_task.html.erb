@@ -1,0 +1,53 @@
+<% if can? :manage, task or User.where(admin: true).first.id == task.user_id  %> 
+    <tr id="tr_edit_<%= task.id%>">     
+    <td><%= task.body %></td>
+    <td><%= task.user.username %></td>
+    <td><%= task.mark %></td>
+    <td><%= link_to 'Show', task, class: "btn btn-secondary" %></td>
+    <td>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myupdatepost_<%= task.id %>">
+            Edit
+        </button>
+    </td>
+    <td><% if can? :destroy, task %>
+        <%= link_to 'Destroy', task, method: :delete, remote: true, class: "btn btn-warning" %>
+        <%end%>
+    </td>
+
+    <%= simple_form_for(task, :method => :put, remote: true) do |form| %>
+        <div class="modal fade" id="myupdatepost_<%= task.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <% if can? :destoy, task%>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit task</h5>
+                <%else%>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Answ</h5>
+                <%end%>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <% if can? :destroy, task%>
+                    <%= form.input :body, input_html: {class: "form-control task__body", placeholder: task.body}%>
+                    <%= form.input :mark, collection: ["No mark",0,1,2,3,4,5]%>
+                    <%= form.input :task_images, as: :file, input_html: {class: "form-control task__answ__images", multiple: true}%><br>
+                <% end%>
+
+                <%= form.input :comment, input_html: {class: "form-control task__comment", placeholder: task.comment}%>
+                <br>
+                <%= form.input :answ_images, as: :file, input_html: {class: "form-control task__answ__images", multiple: true}%><br>
+                <h6 style="text-align: left"> *Images should be JPEG of PNG</h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <%= submit_tag  :Update,  class: "btn btn-primary"%>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <% end%>
+</tr>
+<% end %>
+
+    
